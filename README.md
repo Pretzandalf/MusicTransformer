@@ -82,6 +82,10 @@ In conclusion, Master of Puppets is undoubtedly deserving of a perfect score of 
 2. **Iconic Tracks**: Discovering RHCP's iconic songs like "Californication" and "Scar Tissue".
 3. **Classic Soundtrack**: The Chilli Peppers' renowned sound, developed on this record, makes it a timeless classic.
 
+## вот так будет выглядить выход модели при temperature=0.0
+
+"Get ready to groove with the Red Hot Chili Peppers' iconic album, Californication - a funky fusion of rock, funk, and soul that will have you dancing and singing along!"
+
    
 
 

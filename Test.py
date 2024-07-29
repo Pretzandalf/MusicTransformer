@@ -271,7 +271,7 @@ for i in range(0, len(a)):
 
         res = pipe(prompt)
 
-        with open((path + '.txt'), "a", encoding="utf-8") as file:
+        with open((path + 'Lamma70B.txt'), "a", encoding="utf-8") as file:
             file.write('песня: ' + order[i] + 'запуск '+ num + res + '\n')
             
 

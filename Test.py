@@ -1,7 +1,8 @@
 # Use a pipeline as a high-level helper
 from transformers import pipeline
-print('в какую папку сохранить txt файл:')
-path = str(input())
+import argparse
+#print('в какую папку сохранить txt файл:')
+#path = str(input())
 
 query = "Make one small prompt for album. You must write it in one small sentence approximately 30 words."
 
@@ -253,26 +254,31 @@ a = [lyrics_1, lyrics_2, lyrics_3]
 order = ["Around the World", 'purple stain', 'californication']
 
 
-
-for i in range(0, len(a)):
-    for num in range(1, 4):
-
-
-        prompt = f"""
-        {query}
-        following context, {context}
-        You must to follow the examples: {examples}
-
-        album reviews: {review_1}
-        song lyrics: {a[i]} 
-
-        """
+def LammaTest(path):
+    for i in range(0, len(a)):
+        for num in range(1, 4):
 
 
-        res = pipe(prompt)
+            prompt = f"""
+            {query}
+            following context, {context}
+            You must to follow the examples: {examples}
 
-        with open((path + 'Lamma70B.txt'), "a", encoding="utf-8") as file:
-            file.write('песня: ' + order[i] + 'запуск '+ num + res + '\n')
-            
+            album reviews: {review_1}
+            song lyrics: {a[i]} 
+
+            """
 
 
+            res = pipe(prompt)
+
+            with open((path + 'Lamma70B.txt'), "a", encoding="utf-8") as file:
+                file.write('песня: ' + order[i] + 'запуск '+ num + res + '\n')
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='LLAMA test')
+    parser.add_argument('-s', '--save_dir', default=None, type=str,
+                      help='path to save directory')
+    args = parser.parse_args()
+    LammaTest(args.save_dir)

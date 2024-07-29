@@ -1,6 +1,7 @@
 # Use a pipeline as a high-level helper
 from transformers import pipeline
-
+print('в какую папку сохранить txt файл:')
+path = str(input())
 
 query = "Make one small prompt for album. You must write it in one small sentence approximately 30 words."
 
@@ -251,7 +252,7 @@ song lyrics: {lyrics_1}
 a = [lyrics_1, lyrics_2, lyrics_3]
 order = ["Around the World", 'purple stain', 'californication']
 
-out = []
+
 
 for i in range(0, len(a)):
     for num in range(1, 4):
@@ -269,7 +270,9 @@ for i in range(0, len(a)):
 
 
         res = pipe(prompt)
-        print('песня' + order[i] + 'номер ' + num)
-        print(res)
 
-        out.append(res)
+        with open((path + '.txt'), "a", encoding="utf-8") as file:
+            file.write('песня: ' + order[i] + 'запуск '+ num + res + '\n')
+            
+
+

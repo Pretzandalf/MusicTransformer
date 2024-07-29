@@ -1,6 +1,4 @@
             Make one small prompt for album. You must write it in one small sentence approximately 30 words.
-            following context,  
-The review was taken from a site where most people write their feelings about the song, but I don't need this information.
 
             You must to follow the examples: 
 1. Soulful pop ballad from the early 2000s with a delicate piano melody, soaring string arrangements, and heartfelt lyrics about lost love and self-discovery.

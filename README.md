@@ -201,7 +201,46 @@ Here is a descriptive characteristic search query for which this album could be 
 
 "Album by Red Hot Chili Peppers released in [insert year], featuring John Frusciante, Flea, Chad Smith, and Anthony Kiedis, with songs like Californication, Around the World, Scar Tissue, Otherside, Parallel Universe, and I Like Dirt."
 
+## 1
+Here is a descriptive characteristic search query for the album:
 
+"rock music with funky guitar riffs and basslines, featuring melodic tracks with memorable instrumentation and production, occasional fast-paced vocals with energetic performances, timeless classic hits with iconic guitar work, and nostalgic value, but also flawed with some songs not aging well."
+## 2
+Here's a descriptive characteristic search query for this album:
+
+"90s pop rock album with catchy guitar riffs, memorable melodies, and balanced rap-rock fusion, featuring energetic beats, iconic vocals, and a mix of upbeat and introspective tracks, showcasing the band's comfort zone themes and a blend of cultural commentary and personal expression."
+## 3
+Here's a descriptive characteristic search query for the album:
+
+"A mature, commercially successful, and polished rock music compilation featuring catchy hits, stadium-ready sounds, and a blend of clean and slick production, showcasing the band's ability to craft radio-friendly yet still engaging material."
+## 4
+Here's a descriptive characteristic search query for this album:
+
+"Funky rock sound with prominent guitar riffs, catchy hooks, and eclectic blend of punk and pop influences from a well-established band with a distinctive style, featuring energetic and upbeat tracks with memorable lyrics."
+## 5
+Here's a descriptive characteristic search query for this album:
+
+"Alternative rock album with funky basslines, infectious guitar hooks, and harmonious vocals featuring a mix of upbeat energetic tracks with frantic drum intros and slower songs with soaring guitar solos."
+## 6
+Here's a descriptive characteristic search query for this album:
+
+"Funky eclectic band known for blending 90s rock, slow ballads, and weird funk elements, featuring popular singles with catchy hooks and guitar riffs, and a mix of energetic tracks and more mellow moments"
+## 7
+Here's a descriptive characteristic search query for the album:
+
+"Album by iconic alt rock band featuring nostalgic, guitar-driven tracks with eclectic composition, memorable melodies, and dynamic rhythms, characterized by soothing vocals, eccentric instrumentation, and a blend of introspective and uplifting soundscapes."
+## 8
+Here's a descriptive characteristic search query for this album:
+
+"A fusion of funk, rock, and psychedelia with intricate guitar work, driving rhythms, and poignant lyrics, featuring catchy hooks, melodic basslines, and powerful vocals, resulting in a timeless and critically acclaimed sound."
+## 9
+Here's a descriptive characteristic search query for the album:
+
+"Rock music with mature lyrics, stadium-ready production, and a blend of clean and slick sounds, featuring catchy radio hits and album tracks with a polished, yet natural tone, by an established band transitioning from alternative to mainstream sound."
+## 10
+Here is a descriptive characteristic search query for the album:
+
+"Iconic alt rock record featuring eclectic guitar work, catchy choruses, and southern vocals, with standout tracks that blend comfort and dynamics, exploring themes of nostalgia and youthful obsession."
 
 
 

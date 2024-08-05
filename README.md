@@ -154,52 +154,6 @@ Key Points:
 - The nostalgic nature of this album adds to its charm and timeless quality.
 
 # Lamma 3.1B - Red Hot Chili Peppers Californication
-## 1
-
-Here's a descriptive characteristic search query for the album:
-
-"Album with song titles featuring place names California and Otherside, guitar work from Anthony Kiedis, funky rapping vocals, melodic tracks like Scar Tissue and This Velvet Glove, and basslines reminiscent of Porcelain."
-
-## 2
-
-Here's a descriptive characteristic search query for the Red Hot Chilli Peppers' album "Californication":
-
-"Album released in 1999, featuring John Frusciante, Anthony Kiedis, Flea, and Chad Smith, with genres Pop Rock and Rap
-
-## 3 
-
-Here's a descriptive characteristic search query for the album:
-
-"Album by Red Hot Chili Peppers released in [Year] characterized by mature writing, stadium-ready sounds, and radio-friendly hits with cleaner production quality
-
-## 4
-
-Here's a descriptive search query for the album:
-
-"Red Hot Chili Peppers seventh studio album released with popular songs Scar Tissue, Otherside, and Californication"
-
-## 5 
-
-Here's a descriptive characteristic search query for the album "Californication" by Red Hot Chili Peppers:
-
-"Album with frantic guitar intro, funky bassline, and catchy hooks; features John Frusciante on guitar and Flea on bass; includes singles Otherside, Scar Tissue, and Californication."
-
-## 6 
-
-Here's a descriptive characteristic search query for the album:
-
-"90s funk rock album by Red Hot Chili Peppers featuring Californication, Otherside, Scar Tissue, Parallel Universe, and Road Trippin'"
-
-## 7
-
- Here is a descriptive characteristic search query for the album:
-
-"Album by Red Hot Chili Peppers released in iconic rock music record featuring songs like Californication, Otherside, Parallel Universe, Savior, Scar Tissue"
-
-## 8 
-Here is a descriptive characteristic search query for which this album could be found:
-
-"Album by Red Hot Chili Peppers released in [insert year], featuring John Frusciante, Flea, Chad Smith, and Anthony Kiedis, with songs like Californication, Around the World, Scar Tissue, Otherside, Parallel Universe, and I Like Dirt."
 
 ## 1
 Here is a descriptive characteristic search query for the album:

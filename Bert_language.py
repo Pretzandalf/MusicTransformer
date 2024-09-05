@@ -1,35 +1,23 @@
 print('Start')
-import random
 import torch
+torch.set_num_threads(1)
 from transformers import BertTokenizer, BertModel
-from sklearn.metrics.pairwise import cosine_similarity
 import wandb
 import numpy as np
-import pandas as pd
-import nltk
 from torch import nn
 from transformers import DistilBertTokenizer, DistilBertModel
 from torch.utils.data import Dataset
 from torch.utils.data import DataLoader
-from tqdm import tqdm
+
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-
-tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
-
+print(torch.cuda.is_available())
 
 max_num_of_numbers_check = -5
 
 data_path = 'C:/Users/yarom/PycharmProjects/MusikTransformer/DataBase/Language_base_data/'
 
-wandb.login()
-
-run = wandb.init(
-    project="Encoder_train",
-    config={
-        "config": 'One Bert train and two heads',
-    }
-)
+#wandb.login()
 
 
 class Head_Bert(nn.Module):
@@ -47,6 +35,7 @@ class Head_Bert(nn.Module):
 
         out = self.linear_1(batch)
         out = self.f_activation(out)
+        out = torch.unsqueeze(out, 1)
 
         out = self.conv1d_1(out)
         out = self.f_activation(out)
@@ -70,7 +59,8 @@ class Head_Bert(nn.Module):
 class TextEncoder(nn.Module):
     def __init__(self, model_name="distilbert-base-uncased", trainable = True):
         super().__init__()
-        self.model_bert = DistilBertModel.from_pretrained(model_name)
+        self.tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased')
+        self.model_bert = DistilBertModel.from_pretrained(model_name).to(device)
         if trainable == False:
             for m in self.model_bert.modules():
                 for name, params in m.named_parameters():
@@ -78,7 +68,19 @@ class TextEncoder(nn.Module):
         self.target_token_idx = 0
         self.head = Head_Bert()
 
-    def forward(self, input_ids, attention_mask):
+    def forward(self, text):
+        encoding = self.tokenizer.batch_encode_plus(
+            text,  # List of input texts
+            padding="max_length",
+            max_length=512,  # Pad to the maximum sequence length
+            truncation=True,  # Truncate to the maximum sequence length if necessary
+            return_tensors='pt',  # Return PyTorch tensors
+            add_special_tokens=True  # Add special tokens CLS and SEP
+        )
+
+        input_ids = encoding['input_ids'].to(device)
+        attention_mask = encoding['attention_mask'].to(device)
+
         out = self.model_bert(input_ids, attention_mask, output_hidden_states=True)
         out = out[0][:,self.target_token_idx,:]
         out = self.head(out)
@@ -90,19 +92,19 @@ class clip_models(nn.Module):
         super().__init__()
         self.model_first = TextEncoder()
         self.model_second = TextEncoder(trainable = False)
-        self.ln = nn.LayerNorm([128, 2048])
+        self.ln = nn.LayerNorm([2048])
         self.temp = 0.07
 
-    def forward(self, input_rewiew, attention_rewiew, input_query, attention_query):
-        first_embeding = self.model_first(input_rewiew.to(device), attention_rewiew.to(device))
-        second_embeding = self.model_second(input_query.to(device), attention_query.to(device))
+    def forward(self, review, query):
+        first_embeding = self.model_first(review)
+        second_embeding = self.model_second(query)
 
         first_embeding = self.ln(first_embeding)
         second_embeding = self.ln(second_embeding)
 
         similarity = torch.matmul(first_embeding, second_embeding.T) * torch.exp(torch.tensor(self.temp))
 
-        labels = torch.arange(128).to(device)
+        labels = torch.arange(similarity.shape[0]).to(device)# --------------------------------------------
 
         img_loss = self.cross_entropy_loss(similarity, labels)
         tex_loss = self.cross_entropy_loss(similarity.T, labels)
@@ -117,7 +119,7 @@ class clip_models(nn.Module):
 class Bert_Dataset(Dataset):
     def __init__(self, data_path):
         self.dataset = []
-
+        a = 0
         for album in range(0, 42):
             with open((data_path + str(album) + "/reviews.txt"), "r", encoding="utf-8") as file:
                 reviews = file.read().split('/////')
@@ -125,12 +127,12 @@ class Bert_Dataset(Dataset):
             with open((data_path + str(album) + "/query.txt"), "r", encoding="utf-8") as file:
                 query = file.read()
                 query = self.preprocess_text(query)
-                input_query, attention_query = self.tokenize(query)
 
         for rewiew in reviews:
+            if a < len(rewiew):
+                a = len(rewiew)
             rewiew = self.preprocess_text(rewiew)
-            input_rewiew, attention_rewiew = self.tokenize(rewiew)
-            self.dataset.append([input_rewiew, attention_rewiew, input_query, attention_query])
+            self.dataset.append([rewiew, query])
 
 
     def preprocess_text(self, text):
@@ -158,20 +160,6 @@ class Bert_Dataset(Dataset):
 
         return df
 
-    def tokenize(self, text):
-        encoding = tokenizer.batch_encode_plus(
-            [text],  # List of input texts
-            padding=True,  # Pad to the maximum sequence length
-            truncation=True,  # Truncate to the maximum sequence length if necessary
-            return_tensors='pt',  # Return PyTorch tensors
-            add_special_tokens=True  # Add special tokens CLS and SEP
-        )
-
-        input_ids = encoding['input_ids']
-        attention_mask = encoding['attention_mask']
-
-
-        return input_ids, attention_mask
 
     def __len__(self):
         return len(self.dataset)
@@ -182,11 +170,11 @@ class Bert_Dataset(Dataset):
 
 dataset = Bert_Dataset(data_path)
 train_dataset, val_dataset = torch.utils.data.random_split(dataset, [0.8, 0.2])
-print(train_dataset)
 
 
-train_dataloader = DataLoader(train_dataset, shuffle=True, batch_size=128, num_workers=4)
-val_dataloader = DataLoader(val_dataset, shuffle=True, batch_size=128, num_workers=4)
+train_dataloader = DataLoader(train_dataset, shuffle=True, batch_size=64)
+val_dataloader = DataLoader(val_dataset, shuffle=True, batch_size=64)
+
 
 
 class train_module():
@@ -203,8 +191,8 @@ class train_module():
         self.lr_scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(self.optimizer, mode="min", patience=1, factor=0.8)
 
     def training_step(self, train_batch):
-        input_rewiew, attention_rewiew, input_query, attention_query = train_batch
-        loss = self.model(input_rewiew, attention_rewiew, input_query, attention_query)
+        rewiew, query = train_batch
+        loss = self.model(list(rewiew), list(query))
         self.optimizer.zero_grad()
         loss.backward()
         self.optimizer.step()
@@ -213,32 +201,41 @@ class train_module():
 
 
     def validation_step(self, val_batch):
-        input_rewiew, attention_rewiew, input_query, attention_query = val_batch
-        loss = self.model(input_rewiew, attention_rewiew, input_query, attention_query)
+        rewiew, query = val_batch
+        loss = self.model(list(rewiew), list(query))
         wandb.log({"loss_val": loss})
 
     def train(self):
         for epoch in range(0, self.epochs):
             self.model.train()
-            for bath in tqdm(self.train_dataloader, desc="Training", total=296): # -
-                self.training_step(bath)
+            for batch in self.train_dataloader:
+                self.training_step(batch)
 
             self.model.eval()
-            for bath in tqdm(self.val_dataloader, desc="Testing", total=73): #
-                self.validation_step(bath)
+            for batch in self.val_dataloader:
+                self.validation_step(batch)
         return self.model
 
 
 
 model = clip_models()
 criterion = torch.nn.CrossEntropyLoss()
-epoch = 5
+epoch = 1
+
+run = wandb.init(
+    project="Encoder_train",
+    config={
+        "config": 'One Bert train and two heads',
+    }
+)
+
 
 train_ = train_module(model, criterion, epoch, train_dataloader, val_dataloader)
 if __name__ == '__main__':
     model = train_.train()
 
 path = 'C:/Users/yarom/PycharmProjects/MusikTransformer/Text_Encoder.pt'
+print("saving model")
 torch.save(model.state_dict(), path)
 
 
